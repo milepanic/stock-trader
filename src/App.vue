@@ -1,32 +1,43 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <div class="container">
+            <app-header></app-header>
+
+            <transition name="fade" mode="out-in">
+                <router-view/>
+            </transition>
+        </div>
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import AppHeader from "@/components/layout/AppHeader";
+
+export default {
+    components: {
+        AppHeader
+    },
+    created() {
+        this.$store.dispatch('initStocks')
+    }
 }
 
-#nav {
-  padding: 30px;
+</script>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+<style scoped>
+.container {
+    margin-top: 20px;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.fade-enter-active,
+.fade-leave-active {
+    transition-duration: 0.3s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0
 }
 </style>
